@@ -1,5 +1,6 @@
 from fastapi import FastAPI
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, Response
+
 
 from src.routes.favicon import gen_favicons
 import os
@@ -20,7 +21,7 @@ async def root():
 async def favicon(bank_id: str):
     # check if file exists
     if not os.path.isfile(f"src/assets/{bank_id}.ico"):\
-        return {"status": "error", "message": "File not found"}
+        return Response(status_code=404, content="{\"status\": \"error\", \"message\": \"File not found\"}")
     
     # return file
     return FileResponse(f"src/assets/{bank_id}.ico")
