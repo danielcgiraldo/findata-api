@@ -12,22 +12,16 @@ class DB:
             self.connection = pymysql.connect(
                 host=os.getenv("DATABASE_HOST"),
                 user=os.getenv("DATABASE_USERNAME"),
-                password=os.getenv("DATABASE_PASSWORD"),
+                passwd=os.getenv("DATABASE_PASSWORD"),
                 db=os.getenv("DATABASE"),
+                ssl_verify_identity=True,
                 autocommit=True,
-                ssl={
-                    "ca": os.getenv("DATABASE_SSL_CA"),
-                    "cert": os.getenv("DATABASE_SSL_CERT"),
-                    "key": os.getenv("DATABASE_SSL_KEY"),
-                },
-                charset="utf8mb4",
-                cursorclass=pymysql.cursors.DictCursor,
-                connect_timeout=180,
+                ssl={"ca": os.getenv("DATABASE_SSL_CA")}
             )
         except pymysql.Error as e:
             raise Exception(f"Database connection error: {e}")
 
-    def connection(self):
+    def reconnect(self):
         try:
             self.connection.ping(reconnect=True)
         except pymysql.Error as e:
@@ -37,14 +31,14 @@ class DB:
         self.connection.close()
 
     def insert(self, table, values):
-        self.connection()
+        self.reconnect()
         try:
             with self.connection.cursor() as cursor:
                 columns = ', '.join(values.keys())
                 placeholders = ', '.join(['%s'] * len(values))
                 query = f"INSERT INTO {table} ({columns}) VALUES ({placeholders})"
                 cursor.execute(query, list(values.values()))
-                return True
+            return True
         except (pymysql.Error, Exception) as e:
             # Log the error or raise an exception for proper error handling
             print("Error:", e)

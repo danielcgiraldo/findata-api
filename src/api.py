@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from utilities.db import DB
+from src.utilities.db import DB
 
 
 
