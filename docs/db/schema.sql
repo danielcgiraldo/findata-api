@@ -1,0 +1,49 @@
+DROP TABLE IF EXISTS API_CREDENTIAL;
+CREATE TABLE API_CREDENTIAL(
+    private_key VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    usecase ENUM("personal", "commercial", "academic") NOT NULL,
+    PRIMARY KEY (private_key)
+);
+
+DROP TABLE IF EXISTS BANK;
+CREATE TABLE BANK(
+    id VARCHAR(2) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    website VARCHAR(255) NOT NULL,
+    favicon VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+DROP TABLE IF EXISTS SAVING_ACCOUNT;
+CREATE TABLE SAVING_ACCOUNT(
+    id SMALLINT NOT NULL AUTO_INCREMENT,
+    bank_id VARCHAR(2) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    website VARCHAR(255) NOT NULL,
+    interest_rate FLOAT NOT NULL,
+    PRIMARY KEY (id),
+    KEY bank_id_idx (bank_id)
+);
+
+DROP TABLE IF EXISTS FIXED_DEPOSIT;
+CREATE TABLE FIXED_DEPOSIT(
+    id SMALLINT NOT NULL AUTO_INCREMENT,
+    bank_id VARCHAR(2) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    website VARCHAR(255) NOT NULL,
+    interest_rate FLOAT NOT NULL,
+    statuspage_component VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id),
+    KEY bank_id_idx (bank_id)
+);
+
+DROP TABLE IF EXISTS METRIC;
+CREATE TABLE METRIC(
+    id VARCHAR(3) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    website VARCHAR(255) NOT NULL,
+    value VARCHAR(255) NOT NULL,
+    statuspage_component VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+);
