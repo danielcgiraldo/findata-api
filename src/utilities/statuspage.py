@@ -1,8 +1,7 @@
-from dotenv import load_dotenv
 import requests
 import os
 # Load environment variables from the .env file
-load_dotenv()
+
 
 # Define your page_id and API key
 page_id = os.getenv("STATUSPAGE_PAGE_ID")

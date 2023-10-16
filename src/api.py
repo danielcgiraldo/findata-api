@@ -1,20 +1,15 @@
+from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.responses import FileResponse, Response
-
-
 from src.routes.favicon import gen_favicons
 import os
 
-# from src.utilities.db import DB
-
-
+load_dotenv()
 
 app = FastAPI()
 
 @app.get("/")
 async def root():
-    # db = DB()
-    # db.insert("BANK", {"id": "BC", "name": "Bancolombia", "website": "https://www.grupobancolombia.com", "favicon": "https://www.grupobancolombia.com/favicon.ico"})
     return {"message": "Hello World"}
 
 @app.get("/favicon/{bank_id}")
