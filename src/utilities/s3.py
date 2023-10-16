@@ -10,7 +10,7 @@ def upload_file(file_to_upload, location_to_upload):
     )
 
     # Create an S3 client
-    s3 = session.client('s3')
+    s3 = session.client('s3', region_name=os.getenv("AWS_REGION"))
 
     # Define the cache control value for one month (in seconds)
     cache_control = "max-age=2592000"  # 30 days * 24 hours/day * 60 minutes/hour * 60 seconds/minute
