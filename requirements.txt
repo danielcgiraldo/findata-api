@@ -1,5 +1,5 @@
-fastapi
-uvicorn
-mysqlclient
+fastapi==0.103.2
+uvicorn==0.23.2
+PyMySQL==1.1.0
 python-dotenv
-requests
+requests==2.25.1
