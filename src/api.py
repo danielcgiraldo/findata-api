@@ -14,12 +14,10 @@ async def root():
 
 @app.get("/favicon/{bank_id}")
 async def favicon(bank_id: str):
-    # check if file exists
-    if not os.path.isfile(f"src/assets/{bank_id}.ico"):\
-        return Response(status_code=404, content="{\"status\": \"error\", \"message\": \"File not found\"}")
+    # check if the bank exists in the database
     
     # return file
-    return FileResponse(f"src/assets/{bank_id}.ico")
+    return FileResponse(f"https://findata-assets.s3.amazonaws.com/favicon/{bank_id}.ico")
 
 @app.get("/favicon")
 async def favicon():
