@@ -11,7 +11,6 @@ CREATE TABLE BANK(
     id VARCHAR(2) NOT NULL,
     name VARCHAR(255) NOT NULL,
     website VARCHAR(255) NOT NULL,
-    favicon VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
 

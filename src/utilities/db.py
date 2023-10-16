@@ -40,10 +40,18 @@ class DB:
                 cursor.execute(query, list(values.values()))
             return True
         except (pymysql.Error, Exception) as e:
-            # Log the error or raise an exception for proper error handling
             print("Error:", e)
             return False
         finally:
             cursor.close()
 
-    # Additional methods for database operations
+    def select(self, table, params=None):
+        self.reconnect()
+        try:
+            with self.connection.cursor() as cursor:
+                cursor.execute(f"SELECT * FROM {table}", params)
+                result = cursor.fetchall()
+            return result
+        except pymysql.Error as e:
+            print("Error:", e)
+            return False
