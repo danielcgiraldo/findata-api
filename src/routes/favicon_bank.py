@@ -5,6 +5,7 @@ from src.utilities.db import DB
 
 def return_favicon(bank_id):
     # check if the bank exists in the database
+    # TODO: cache this in redis
     db = DB();
     banks = db.select("BANK", {"id": bank_id})
     del db
