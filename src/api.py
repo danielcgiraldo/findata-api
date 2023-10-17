@@ -22,3 +22,7 @@ async def favicon(bank_id: str):
 @app.get("/favicon")
 async def favicon():
     return gen_favicons()
+
+@app.get("/favicon.ico")
+async def favicon():
+    return FileResponse("favicon.ico")
