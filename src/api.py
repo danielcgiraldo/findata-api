@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 from fastapi import FastAPI
-from fastapi.responses import FileResponse, Response
+from fastapi.responses import FileResponse
+from src.routes.favicon_bank import return_favicon
 from src.routes.favicon import gen_favicons
 import os
 
@@ -14,10 +15,7 @@ async def root():
 
 @app.get("/favicon/{bank_id}")
 async def favicon(bank_id: str):
-    # check if the bank exists in the database
-    
-    # return file
-    return FileResponse(f"https://findata-assets.s3.amazonaws.com/favicon/{bank_id}.ico")
+    return return_favicon(bank_id)
 
 @app.get("/favicon")
 async def favicon():

@@ -45,7 +45,13 @@ class DB:
         self.reconnect()
         try:
             with self.connection.cursor() as cursor:
-                cursor.execute(f"SELECT * FROM {table}", params)
+                if params is None:
+                    cursor.execute(f"SELECT * FROM {table}")
+                else:
+                    # Construct the SQL query dynamically
+                    where_conditions = " AND ".join(f"{key} = %s" for key in params.keys())
+                    sql = f"SELECT * FROM {table} WHERE {where_conditions}"
+                    cursor.execute(sql, list(params.values()))
                 result = cursor.fetchall()
             return result
         except pymysql.Error as e:
